@@ -11,6 +11,7 @@ use App\Models\Manufacturer;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Seo;
+use App\Models\Series;
 use App\Models\Setting;
 use App\Models\User;
 use App\Policies\AdministrationPolicy;
@@ -23,6 +24,7 @@ use App\Policies\ManufacturerPolicy;
 use App\Policies\OrderPolicy;
 use App\Policies\ProductPolicy;
 use App\Policies\SeoPolicy;
+use App\Policies\SeriesPolicy;
 use App\Policies\SettingPolicy;
 use App\Policies\UserPolicy;
 use Illuminate\Support\Facades\Gate;
@@ -41,6 +43,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(Category::class, CategoryPolicy::class);
         Gate::policy(Brand::class, BrandPolicy::class);
         Gate::policy(Manufacturer::class, ManufacturerPolicy::class);
+        Gate::policy(Series::class, SeriesPolicy::class);
         Gate::policy(Order::class, OrderPolicy::class);
         Gate::policy(Customer::class, CustomerPolicy::class);
         Gate::policy(Inventory::class, InventoryPolicy::class);
@@ -63,6 +66,7 @@ class AppServiceProvider extends ServiceProvider
             'manage-categories' => 'manageCategories',
             'manage-brands' => 'manageBrands',
             'manage-manufacturers' => 'manageManufacturers',
+            'manage-series' => 'manageSeries',
             'manage-orders' => 'manageOrders',
             'manage-customers' => 'manageCustomers',
             'manage-inventory' => 'manageInventory',

@@ -1,0 +1,6 @@
+<x-layouts.admin title="{{ $series->name }} | LapkingHub" page-title="View Series" :breadcrumbs="[['label' => 'Series', 'url' => route('admin.series.index')]]">
+    <div class="card shadow-sm"><div class="card-body">
+        <div class="d-flex flex-column flex-md-row justify-content-between gap-3 mb-4"><div><h3>{{ $series->name }}</h3><p class="text-secondary mb-0">{{ $series->slug }}</p></div><div class="d-flex gap-2"><a class="btn btn-outline-primary" href="{{ route('admin.series.edit', $series) }}">Edit</a><a class="btn btn-outline-secondary" href="{{ route('admin.series.index') }}">Back</a></div></div>
+        <dl class="row"><dt class="col-sm-3">Manufacturer</dt><dd class="col-sm-9">{{ $series->manufacturer?->name ?: '—' }}</dd><dt class="col-sm-3">Status</dt><dd class="col-sm-9">{{ ucfirst($series->status) }}</dd><dt class="col-sm-3">Description</dt><dd class="col-sm-9">{{ $series->description ?: '—' }}</dd><dt class="col-sm-3">SEO Title</dt><dd class="col-sm-9">{{ $series->seo_title ?: '—' }}</dd><dt class="col-sm-3">SEO Description</dt><dd class="col-sm-9">{{ $series->seo_description ?: '—' }}</dd><dt class="col-sm-3">Created By</dt><dd class="col-sm-9">{{ $series->creator?->name ?: '—' }}</dd><dt class="col-sm-3">Updated By</dt><dd class="col-sm-9">{{ $series->updater?->name ?: '—' }}</dd></dl>
+    </div></div>
+</x-layouts.admin>

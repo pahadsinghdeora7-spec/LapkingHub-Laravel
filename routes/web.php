@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ManufacturerController;
+use App\Http\Controllers\Admin\SeriesController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -28,8 +29,11 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::delete('brands/{brand}/force-delete', [BrandController::class, 'forceDelete'])->name('brands.force-delete');
 
     Route::resource('manufacturers', ManufacturerController::class);
+    Route::resource('series', SeriesController::class)->withTrashed(['show']);
     Route::patch('manufacturers/{manufacturer}/restore', [ManufacturerController::class, 'restore'])->name('manufacturers.restore');
     Route::delete('manufacturers/{manufacturer}/force-delete', [ManufacturerController::class, 'forceDelete'])->name('manufacturers.force-delete');
+    Route::patch('series/{series}/restore', [SeriesController::class, 'restore'])->name('series.restore');
+    Route::delete('series/{series}/force-delete', [SeriesController::class, 'forceDelete'])->name('series.force-delete');
 });
 
 require __DIR__.'/auth.php';
