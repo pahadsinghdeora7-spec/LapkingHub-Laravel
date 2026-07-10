@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -26,6 +27,7 @@ class Product extends Model
     public function images(): HasMany { return $this->hasMany(ProductImage::class); }
     public function attributes(): HasMany { return $this->hasMany(ProductAttribute::class); }
     public function compatibleModels(): HasMany { return $this->hasMany(CompatibleModel::class); }
+    public function laptopModels(): BelongsToMany { return $this->belongsToMany(LaptopModel::class, 'product_laptop_models')->using(ProductLaptopModelPivot::class)->withPivot(['id', 'compatibility_type', 'oem_part_number', 'notes', 'priority', 'status', 'created_by', 'updated_by'])->withTimestamps(); }
     public function inventory(): HasMany { return $this->hasMany(Inventory::class); }
     public function orderItems(): HasMany { return $this->hasMany(OrderItem::class); }
     public function wishlists(): HasMany { return $this->hasMany(Wishlist::class); }

@@ -2,14 +2,18 @@
 
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CompatibilityController;
 use App\Http\Controllers\Admin\ManufacturerController;
 use App\Http\Controllers\Admin\LaptopModelController;
 use App\Http\Controllers\Admin\SeriesController;
+use App\Http\Controllers\ProductCompatibilityController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('products/{product}/compatible-laptop-models', [ProductCompatibilityController::class, 'show'])->name('products.compatible-laptop-models');
 
 
 Route::get('/admin', function () {
@@ -33,6 +37,10 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::resource('brands', BrandController::class);
     Route::patch('brands/{brand}/restore', [BrandController::class, 'restore'])->name('brands.restore');
     Route::delete('brands/{brand}/force-delete', [BrandController::class, 'forceDelete'])->name('brands.force-delete');
+
+    Route::get('products/{product}/compatibilities', [CompatibilityController::class, 'index'])->name('products.compatibilities.index');
+    Route::post('products/{product}/compatibilities/bulk-assign', [CompatibilityController::class, 'bulkAssign'])->name('products.compatibilities.bulk-assign');
+    Route::delete('products/{product}/compatibilities/bulk-remove', [CompatibilityController::class, 'bulkRemove'])->name('products.compatibilities.bulk-remove');
 
     Route::resource('manufacturers', ManufacturerController::class);
     Route::resource('series', SeriesController::class)->withTrashed(['show']);

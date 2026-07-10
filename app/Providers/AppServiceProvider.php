@@ -18,6 +18,7 @@ use App\Models\User;
 use App\Policies\AdministrationPolicy;
 use App\Policies\BrandPolicy;
 use App\Policies\CategoryPolicy;
+use App\Policies\CompatibilityPolicy;
 use App\Policies\CouponPolicy;
 use App\Policies\CustomerPolicy;
 use App\Policies\InventoryPolicy;
@@ -60,6 +61,10 @@ class AppServiceProvider extends ServiceProvider
         foreach ($this->permissionGates() as $ability => $method) {
             Gate::define($ability, [AdministrationPolicy::class, $method]);
         }
+
+        Gate::define('view-product-compatibility', [CompatibilityPolicy::class, 'view']);
+        Gate::define('assign-product-compatibility', [CompatibilityPolicy::class, 'assign']);
+        Gate::define('remove-product-compatibility', [CompatibilityPolicy::class, 'remove']);
     }
 
     private function permissionGates(): array
