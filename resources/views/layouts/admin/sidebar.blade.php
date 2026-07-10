@@ -8,7 +8,7 @@
         ['label' => 'Series', 'icon' => 'bi-layers', 'route' => 'admin.series.index', 'active' => 'admin.series.*'],
         ['label' => 'Laptop Models', 'icon' => 'bi-laptop', 'route' => 'admin.laptop-models.index', 'active' => 'admin.laptop-models.*'],
         ['label' => 'Orders', 'icon' => 'bi-bag-check'],
-        ['label' => 'Customers', 'icon' => 'bi-people'],
+        ['label' => 'Customers', 'icon' => 'bi-people', 'route' => 'admin.customers.index', 'active' => 'admin.customers.*'],
         ['label' => 'Inventory', 'icon' => 'bi-boxes', 'route' => 'admin.inventory.index', 'active' => 'admin.inventory.*'],
         ['label' => 'Coupons', 'icon' => 'bi-ticket-perforated'],
         ['label' => 'Marketing', 'icon' => 'bi-megaphone'],

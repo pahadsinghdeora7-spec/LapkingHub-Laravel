@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\CompatibilityController;
 use App\Http\Controllers\Admin\ManufacturerController;
 use App\Http\Controllers\Admin\InventoryController;
@@ -60,6 +61,9 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::resource('brands', BrandController::class);
     Route::patch('brands/{brand}/restore', [BrandController::class, 'restore'])->name('brands.restore');
     Route::delete('brands/{brand}/force-delete', [BrandController::class, 'forceDelete'])->name('brands.force-delete');
+
+    Route::resource('customers', CustomerController::class)->withTrashed(['show']);
+    Route::patch('customers/{customer}/restore', [CustomerController::class, 'restore'])->name('customers.restore');
 
     Route::get('products/{product}/compatibilities', [CompatibilityController::class, 'index'])->name('products.compatibilities.index');
     Route::post('products/{product}/compatibilities/bulk-assign', [CompatibilityController::class, 'bulkAssign'])->name('products.compatibilities.bulk-assign');

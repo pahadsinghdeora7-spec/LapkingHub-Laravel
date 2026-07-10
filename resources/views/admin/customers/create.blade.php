@@ -1,0 +1,1 @@
+<x-layouts.admin title="Create Customer | LapkingHub" page-title="Create Customer" :breadcrumbs="[['label' => 'Customers', 'url' => route('admin.customers.index')]]"><div class="card shadow-sm"><div class="card-body"><form method="POST" action="{{ route('admin.customers.store') }}">@include('admin.customers._form')</form></div></div></x-layouts.admin>
