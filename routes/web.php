@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CompatibilityController;
 use App\Http\Controllers\Admin\ManufacturerController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\LaptopModelController;
 use App\Http\Controllers\Admin\SeriesController;
 use App\Http\Controllers\ProductCompatibilityController;
@@ -35,6 +36,14 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::get('products/export', [ProductController::class, 'export'])->name('products.export');
     Route::post('products/bulk', [ProductController::class, 'bulk'])->name('products.bulk');
     Route::resource('products', ProductController::class)->withTrashed(['show']);
+    Route::get('products/{product}/images', [ProductImageController::class, 'index'])->name('products.images.index');
+    Route::post('products/{product}/images', [ProductImageController::class, 'store'])->name('products.images.store');
+    Route::put('products/{product}/images/{image}', [ProductImageController::class, 'update'])->name('products.images.update');
+    Route::delete('products/{product}/images/{image}', [ProductImageController::class, 'destroy'])->name('products.images.destroy');
+    Route::patch('products/{product}/images/{image}/restore', [ProductImageController::class, 'restore'])->name('products.images.restore');
+    Route::delete('products/{product}/images/{image}/force-delete', [ProductImageController::class, 'forceDelete'])->name('products.images.force-delete');
+    Route::patch('products/{product}/images/{image}/primary', [ProductImageController::class, 'setPrimary'])->name('products.images.primary');
+    Route::patch('products/{product}/images/sort', [ProductImageController::class, 'sort'])->name('products.images.sort');
     Route::patch('products/{product}/restore', [ProductController::class, 'restore'])->name('products.restore');
     Route::delete('products/{product}/force-delete', [ProductController::class, 'forceDelete'])->name('products.force-delete');
 

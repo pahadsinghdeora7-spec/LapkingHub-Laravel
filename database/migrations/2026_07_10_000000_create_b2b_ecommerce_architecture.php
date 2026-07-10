@@ -89,9 +89,16 @@ return new class extends Migration
         Schema::create('product_images', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('product_id')->constrained()->cascadeOnDelete();
-            $table->string('path');
+            $table->string('image_path');
+            $table->string('image_name')->nullable();
             $table->string('alt_text')->nullable();
+            $table->string('title')->nullable();
             $table->boolean('is_primary')->default(false)->index();
+            $table->unsignedBigInteger('image_size')->nullable();
+            $table->unsignedInteger('image_width')->nullable();
+            $table->unsignedInteger('image_height')->nullable();
+            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
             $table->unsignedInteger('sort_order')->default(0)->index();
             $table->timestamps();
             $table->softDeletes();

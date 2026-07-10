@@ -11,6 +11,7 @@ use App\Models\LaptopModel;
 use App\Models\Manufacturer;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\ProductImage;
 use App\Models\Seo;
 use App\Models\Series;
 use App\Models\Setting;
@@ -26,6 +27,7 @@ use App\Policies\LaptopModelPolicy;
 use App\Policies\ManufacturerPolicy;
 use App\Policies\OrderPolicy;
 use App\Policies\ProductPolicy;
+use App\Policies\ProductImagePolicy;
 use App\Policies\SeoPolicy;
 use App\Policies\SeriesPolicy;
 use App\Policies\SettingPolicy;
@@ -43,6 +45,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Gate::policy(Product::class, ProductPolicy::class);
+        Gate::policy(ProductImage::class, ProductImagePolicy::class);
         Gate::policy(Category::class, CategoryPolicy::class);
         Gate::policy(Brand::class, BrandPolicy::class);
         Gate::policy(Manufacturer::class, ManufacturerPolicy::class);
@@ -62,6 +65,10 @@ class AppServiceProvider extends ServiceProvider
             Gate::define($ability, [AdministrationPolicy::class, $method]);
         }
 
+        Gate::define('view-product-images', fn (User $user): bool => $user->hasPermission('view-product-images'));
+        Gate::define('create-product-images', fn (User $user): bool => $user->hasPermission('create-product-images'));
+        Gate::define('edit-product-images', fn (User $user): bool => $user->hasPermission('edit-product-images'));
+        Gate::define('delete-product-images', fn (User $user): bool => $user->hasPermission('delete-product-images'));
         Gate::define('view-product-compatibility', [CompatibilityPolicy::class, 'view']);
         Gate::define('assign-product-compatibility', [CompatibilityPolicy::class, 'assign']);
         Gate::define('remove-product-compatibility', [CompatibilityPolicy::class, 'remove']);

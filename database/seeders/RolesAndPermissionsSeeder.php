@@ -27,6 +27,10 @@ class RolesAndPermissionsSeeder extends Seeder
             'Manage Settings',
             'Manage Users',
             'View Reports',
+            'View Product Images',
+            'Create Product Images',
+            'Edit Product Images',
+            'Delete Product Images',
         ])->mapWithKeys(fn (string $name): array => [
             Str::slug($name) => Permission::query()->updateOrCreate(
                 ['slug' => Str::slug($name)],
@@ -37,9 +41,9 @@ class RolesAndPermissionsSeeder extends Seeder
         $rolePermissions = [
             'Super Admin' => $permissions->keys()->all(),
             'Admin' => $permissions->keys()->reject(fn (string $slug): bool => $slug === 'manage-settings')->all(),
-            'Manager' => ['manage-products', 'manage-categories', 'manage-brands', 'manage-manufacturers', 'manage-series', 'manage-laptop-models', 'manage-orders', 'manage-customers', 'manage-inventory', 'manage-coupons', 'view-reports'],
+            'Manager' => ['manage-products', 'view-product-images', 'create-product-images', 'edit-product-images', 'delete-product-images', 'manage-categories', 'manage-brands', 'manage-manufacturers', 'manage-series', 'manage-laptop-models', 'manage-orders', 'manage-customers', 'manage-inventory', 'manage-coupons', 'view-reports'],
             'Sales' => ['manage-orders', 'manage-customers', 'manage-coupons'],
-            'Warehouse' => ['manage-products', 'manage-inventory', 'manage-orders'],
+            'Warehouse' => ['manage-products', 'view-product-images', 'create-product-images', 'edit-product-images', 'delete-product-images', 'manage-inventory', 'manage-orders'],
             'Support' => ['manage-orders', 'manage-customers'],
             'Customer' => [],
         ];
