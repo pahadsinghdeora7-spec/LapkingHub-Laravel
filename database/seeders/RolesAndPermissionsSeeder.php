@@ -21,6 +21,9 @@ class RolesAndPermissionsSeeder extends Seeder
             'Manage Orders',
             'Manage Customers',
             'Manage Inventory',
+            'View Inventory',
+            'Adjust Stock',
+            'View Stock History',
             'Manage Coupons',
             'Manage Marketing',
             'Manage SEO',
@@ -41,9 +44,9 @@ class RolesAndPermissionsSeeder extends Seeder
         $rolePermissions = [
             'Super Admin' => $permissions->keys()->all(),
             'Admin' => $permissions->keys()->reject(fn (string $slug): bool => $slug === 'manage-settings')->all(),
-            'Manager' => ['manage-products', 'view-product-images', 'create-product-images', 'edit-product-images', 'delete-product-images', 'manage-categories', 'manage-brands', 'manage-manufacturers', 'manage-series', 'manage-laptop-models', 'manage-orders', 'manage-customers', 'manage-inventory', 'manage-coupons', 'view-reports'],
+            'Manager' => ['manage-products', 'view-product-images', 'create-product-images', 'edit-product-images', 'delete-product-images', 'manage-categories', 'manage-brands', 'manage-manufacturers', 'manage-series', 'manage-laptop-models', 'manage-orders', 'manage-customers', 'manage-inventory', 'view-inventory', 'adjust-stock', 'view-stock-history', 'manage-coupons', 'view-reports'],
             'Sales' => ['manage-orders', 'manage-customers', 'manage-coupons'],
-            'Warehouse' => ['manage-products', 'view-product-images', 'create-product-images', 'edit-product-images', 'delete-product-images', 'manage-inventory', 'manage-orders'],
+            'Warehouse' => ['manage-products', 'view-product-images', 'create-product-images', 'edit-product-images', 'delete-product-images', 'manage-inventory', 'view-inventory', 'adjust-stock', 'view-stock-history', 'manage-orders'],
             'Support' => ['manage-orders', 'manage-customers'],
             'Customer' => [],
         ];

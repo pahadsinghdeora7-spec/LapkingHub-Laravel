@@ -9,7 +9,7 @@
         ['label' => 'Laptop Models', 'icon' => 'bi-laptop', 'route' => 'admin.laptop-models.index', 'active' => 'admin.laptop-models.*'],
         ['label' => 'Orders', 'icon' => 'bi-bag-check'],
         ['label' => 'Customers', 'icon' => 'bi-people'],
-        ['label' => 'Inventory', 'icon' => 'bi-boxes'],
+        ['label' => 'Inventory', 'icon' => 'bi-boxes', 'route' => 'admin.inventory.index', 'active' => 'admin.inventory.*'],
         ['label' => 'Coupons', 'icon' => 'bi-ticket-perforated'],
         ['label' => 'Marketing', 'icon' => 'bi-megaphone'],
         ['label' => 'Reports', 'icon' => 'bi-graph-up-arrow'],

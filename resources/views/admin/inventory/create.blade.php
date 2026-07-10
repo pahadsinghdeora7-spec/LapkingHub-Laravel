@@ -1,0 +1,1 @@
+<x-layouts.admin title="Create Inventory | LapkingHub" page-title="Create Inventory"><div class="card shadow-sm"><div class="card-body"><form method="POST" action="{{ route('admin.inventory.store') }}">@include('admin.inventory._form')</form></div></div></x-layouts.admin>
