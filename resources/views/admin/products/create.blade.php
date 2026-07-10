@@ -1,0 +1,1 @@
+<x-layouts.admin title="Create Product | LapkingHub" page-title="Create Product"><div class="card shadow-sm"><div class="card-body"><form method="POST" action="{{ route('admin.products.store') }}">@include('admin.products._form')</form></div></div></x-layouts.admin>

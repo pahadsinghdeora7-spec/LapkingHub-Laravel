@@ -1,7 +1,7 @@
 @php
     $adminMenu = [
         ['label' => 'Dashboard', 'icon' => 'bi-speedometer2', 'route' => 'admin.dashboard'],
-        ['label' => 'Products', 'icon' => 'bi-box-seam'],
+        ['label' => 'Products', 'icon' => 'bi-box-seam', 'route' => 'admin.products.index', 'active' => 'admin.products.*'],
         ['label' => 'Categories', 'icon' => 'bi-tags', 'route' => 'admin.categories.index', 'active' => 'admin.categories.*'],
         ['label' => 'Brands', 'icon' => 'bi-award', 'route' => 'admin.brands.index', 'active' => 'admin.brands.*'],
         ['label' => 'Manufacturers', 'icon' => 'bi-building', 'route' => 'admin.manufacturers.index', 'active' => 'admin.manufacturers.*'],

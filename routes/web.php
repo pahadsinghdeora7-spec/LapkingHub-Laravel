@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CompatibilityController;
 use App\Http\Controllers\Admin\ManufacturerController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\LaptopModelController;
 use App\Http\Controllers\Admin\SeriesController;
 use App\Http\Controllers\ProductCompatibilityController;
@@ -30,6 +31,13 @@ Route::get('/dashboard', function () {
 
 
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function (): void {
+    Route::get('products/import', [ProductController::class, 'import'])->name('products.import');
+    Route::get('products/export', [ProductController::class, 'export'])->name('products.export');
+    Route::post('products/bulk', [ProductController::class, 'bulk'])->name('products.bulk');
+    Route::resource('products', ProductController::class)->withTrashed(['show']);
+    Route::patch('products/{product}/restore', [ProductController::class, 'restore'])->name('products.restore');
+    Route::delete('products/{product}/force-delete', [ProductController::class, 'forceDelete'])->name('products.force-delete');
+
     Route::resource('categories', CategoryController::class)->withTrashed(['show']);
     Route::patch('categories/{category}/restore', [CategoryController::class, 'restore'])->name('categories.restore');
     Route::delete('categories/{category}/force-delete', [CategoryController::class, 'forceDelete'])->name('categories.force-delete');
