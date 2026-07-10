@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ManufacturerController;
+use App\Http\Controllers\Admin\LaptopModelController;
 use App\Http\Controllers\Admin\SeriesController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,10 +31,13 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
 
     Route::resource('manufacturers', ManufacturerController::class);
     Route::resource('series', SeriesController::class)->withTrashed(['show']);
+    Route::resource('laptop-models', LaptopModelController::class)->parameters(['laptop-models' => 'laptopModel'])->withTrashed(['show']);
     Route::patch('manufacturers/{manufacturer}/restore', [ManufacturerController::class, 'restore'])->name('manufacturers.restore');
     Route::delete('manufacturers/{manufacturer}/force-delete', [ManufacturerController::class, 'forceDelete'])->name('manufacturers.force-delete');
     Route::patch('series/{series}/restore', [SeriesController::class, 'restore'])->name('series.restore');
     Route::delete('series/{series}/force-delete', [SeriesController::class, 'forceDelete'])->name('series.force-delete');
+    Route::patch('laptop-models/{laptopModel}/restore', [LaptopModelController::class, 'restore'])->name('laptop-models.restore');
+    Route::delete('laptop-models/{laptopModel}/force-delete', [LaptopModelController::class, 'forceDelete'])->name('laptop-models.force-delete');
 });
 
 require __DIR__.'/auth.php';

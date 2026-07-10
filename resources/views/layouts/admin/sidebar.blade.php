@@ -6,6 +6,7 @@
         ['label' => 'Brands', 'icon' => 'bi-award', 'route' => 'admin.brands.index', 'active' => 'admin.brands.*'],
         ['label' => 'Manufacturers', 'icon' => 'bi-building', 'route' => 'admin.manufacturers.index', 'active' => 'admin.manufacturers.*'],
         ['label' => 'Series', 'icon' => 'bi-layers', 'route' => 'admin.series.index', 'active' => 'admin.series.*'],
+        ['label' => 'Laptop Models', 'icon' => 'bi-laptop', 'route' => 'admin.laptop-models.index', 'active' => 'admin.laptop-models.*'],
         ['label' => 'Orders', 'icon' => 'bi-bag-check'],
         ['label' => 'Customers', 'icon' => 'bi-people'],
         ['label' => 'Inventory', 'icon' => 'bi-boxes'],
