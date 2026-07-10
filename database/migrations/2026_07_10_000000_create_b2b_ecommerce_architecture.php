@@ -32,9 +32,14 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->text('description')->nullable();
+            $table->string('icon_path')->nullable();
             $table->string('image_path')->nullable();
             $table->boolean('is_active')->default(true)->index();
             $table->unsignedInteger('sort_order')->default(0)->index();
+            $table->string('seo_title')->nullable();
+            $table->text('seo_description')->nullable();
+            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
             $table->timestamps();
             $table->softDeletes();
             $table->index(['parent_id', 'is_active']);
