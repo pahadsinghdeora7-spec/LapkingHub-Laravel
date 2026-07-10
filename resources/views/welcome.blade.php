@@ -1,19 +1,17 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{{ config('app.name', 'Laravel') }}</title>
-        @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    </head>
-    <body>
-        <main class="container py-5">
-            <div class="p-5 mb-4 bg-body-tertiary rounded-3">
-                <div class="container-fluid py-5">
-                    <h1 class="display-5 fw-bold">Laravel 12 Foundation</h1>
-                    <p class="col-md-8 fs-4">This application is initialized with Laravel, Vite, and Bootstrap 5.</p>
+<x-layouts.auth title="LapkingHub | Secure Account Access">
+    <div class="row justify-content-center text-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-body p-5">
+                    <span class="badge text-bg-primary-subtle text-primary border border-primary-subtle rounded-pill mb-3">Authentication Only</span>
+                    <h1 class="display-6 fw-bold mb-3">Secure LapkingHub account access</h1>
+                    <p class="lead text-secondary mb-4">Register, verify your email, sign in securely, and recover your password through a clean Bootstrap interface.</p>
+                    <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
+                        <a href="{{ route('register') }}" class="btn btn-primary btn-lg px-4">Create account</a>
+                        <a href="{{ route('login') }}" class="btn btn-outline-primary btn-lg px-4">Login</a>
+                    </div>
                 </div>
             </div>
-        </main>
-    </body>
-</html>
+        </div>
+    </div>
+</x-layouts.auth>
