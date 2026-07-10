@@ -4,6 +4,7 @@
         ['label' => 'Products', 'icon' => 'bi-box-seam'],
         ['label' => 'Categories', 'icon' => 'bi-tags'],
         ['label' => 'Brands', 'icon' => 'bi-award', 'route' => 'admin.brands.index', 'active' => 'admin.brands.*'],
+        ['label' => 'Manufacturers', 'icon' => 'bi-building', 'route' => 'admin.manufacturers.index', 'active' => 'admin.manufacturers.*'],
         ['label' => 'Orders', 'icon' => 'bi-bag-check'],
         ['label' => 'Customers', 'icon' => 'bi-people'],
         ['label' => 'Inventory', 'icon' => 'bi-boxes'],
