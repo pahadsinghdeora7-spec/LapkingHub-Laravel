@@ -20,6 +20,10 @@ class RolesAndPermissionsSeeder extends Seeder
             'Manage Laptop Models',
             'Manage Orders',
             'Manage Customers',
+            'View Customers',
+            'Create Customers',
+            'Edit Customers',
+            'Delete Customers',
             'Manage Inventory',
             'View Inventory',
             'Adjust Stock',
@@ -44,10 +48,10 @@ class RolesAndPermissionsSeeder extends Seeder
         $rolePermissions = [
             'Super Admin' => $permissions->keys()->all(),
             'Admin' => $permissions->keys()->reject(fn (string $slug): bool => $slug === 'manage-settings')->all(),
-            'Manager' => ['manage-products', 'view-product-images', 'create-product-images', 'edit-product-images', 'delete-product-images', 'manage-categories', 'manage-brands', 'manage-manufacturers', 'manage-series', 'manage-laptop-models', 'manage-orders', 'manage-customers', 'manage-inventory', 'view-inventory', 'adjust-stock', 'view-stock-history', 'manage-coupons', 'view-reports'],
-            'Sales' => ['manage-orders', 'manage-customers', 'manage-coupons'],
+            'Manager' => ['manage-products', 'view-product-images', 'create-product-images', 'edit-product-images', 'delete-product-images', 'manage-categories', 'manage-brands', 'manage-manufacturers', 'manage-series', 'manage-laptop-models', 'manage-orders', 'manage-customers', 'view-customers', 'create-customers', 'edit-customers', 'delete-customers', 'manage-inventory', 'view-inventory', 'adjust-stock', 'view-stock-history', 'manage-coupons', 'view-reports'],
+            'Sales' => ['manage-orders', 'manage-customers', 'view-customers', 'create-customers', 'edit-customers', 'manage-coupons'],
             'Warehouse' => ['manage-products', 'view-product-images', 'create-product-images', 'edit-product-images', 'delete-product-images', 'manage-inventory', 'view-inventory', 'adjust-stock', 'view-stock-history', 'manage-orders'],
-            'Support' => ['manage-orders', 'manage-customers'],
+            'Support' => ['manage-orders', 'manage-customers', 'view-customers', 'edit-customers'],
             'Customer' => [],
         ];
 
