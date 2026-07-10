@@ -1,0 +1,1 @@
+<x-layouts.admin title="Product Import | LapkingHub" page-title="Bulk Import"><div class="alert alert-info">Product bulk import placeholder. Import processing will be added in a future module.</div></x-layouts.admin>

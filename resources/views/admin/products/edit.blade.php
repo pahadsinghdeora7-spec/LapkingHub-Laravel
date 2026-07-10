@@ -1,0 +1,1 @@
+<x-layouts.admin title="Edit Product | LapkingHub" page-title="Edit Product"><div class="card shadow-sm"><div class="card-body"><form method="POST" action="{{ route('admin.products.update', $product) }}">@method('PUT') @include('admin.products._form')</form></div></div></x-layouts.admin>

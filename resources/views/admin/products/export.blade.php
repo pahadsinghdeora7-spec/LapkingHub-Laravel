@@ -1,0 +1,1 @@
+<x-layouts.admin title="Product Export | LapkingHub" page-title="Bulk Export"><div class="alert alert-info">Product bulk export placeholder. Export processing will be added in a future module.</div></x-layouts.admin>
