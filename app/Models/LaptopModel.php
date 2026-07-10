@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class LaptopModel extends Model
@@ -51,5 +52,10 @@ class LaptopModel extends Model
     public function updater(): BelongsTo
     {
         return $this->belongsTo(User::class, 'updated_by');
+    }
+
+    public function products(): BelongsToMany
+    {
+        return $this->belongsToMany(Product::class, 'product_laptop_models')->using(ProductLaptopModelPivot::class)->withPivot(['id', 'compatibility_type', 'oem_part_number', 'notes', 'priority', 'status', 'created_by', 'updated_by'])->withTimestamps();
     }
 }
