@@ -21,7 +21,7 @@ class ProductRepository extends BaseRepository
 
     public function findForAdmin(string $id): Product
     {
-        return $this->query()->withTrashed()->with(['brand','category','alternatePartNumbers','laptopModels.manufacturer','creator:id,name','updater:id,name','images','primaryImage'])->findOrFail($id);
+        return $this->query()->withTrashed()->with(['brand','category','alternatePartNumbers','laptopModels.manufacturer','creator:id,name','updater:id,name','images','primaryImage','inventory'])->findOrFail($id);
     }
 
     public function create(array $data): Product { return $this->query()->create($data); }
