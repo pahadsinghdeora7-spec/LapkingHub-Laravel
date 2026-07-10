@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ManufacturerController;
 use App\Http\Controllers\Admin\LaptopModelController;
 use App\Http\Controllers\Admin\SeriesController;
@@ -25,6 +26,10 @@ Route::get('/dashboard', function () {
 
 
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function (): void {
+    Route::resource('categories', CategoryController::class)->withTrashed(['show']);
+    Route::patch('categories/{category}/restore', [CategoryController::class, 'restore'])->name('categories.restore');
+    Route::delete('categories/{category}/force-delete', [CategoryController::class, 'forceDelete'])->name('categories.force-delete');
+
     Route::resource('brands', BrandController::class);
     Route::patch('brands/{brand}/restore', [BrandController::class, 'restore'])->name('brands.restore');
     Route::delete('brands/{brand}/force-delete', [BrandController::class, 'forceDelete'])->name('brands.force-delete');

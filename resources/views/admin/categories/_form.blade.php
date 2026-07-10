@@ -1,0 +1,14 @@
+@csrf
+<div class="row g-3">
+    <div class="col-md-6"><label class="form-label">Name</label><input class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name', $category->name) }}" required>@error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror</div>
+    <div class="col-md-6"><label class="form-label">Slug</label><input class="form-control @error('slug') is-invalid @enderror" name="slug" value="{{ old('slug', $category->slug) }}" placeholder="Auto-generated when empty">@error('slug')<div class="invalid-feedback">{{ $message }}</div>@enderror</div>
+    <div class="col-md-6"><label class="form-label">Parent Category</label><select class="form-select @error('parent_id') is-invalid @enderror" name="parent_id"><option value="">Root category</option>@foreach($parentOptions as $parent)<option value="{{ $parent->id }}" @selected(old('parent_id', $category->parent_id) === $parent->id)>{{ $parent->name }}</option>@endforeach</select>@error('parent_id')<div class="invalid-feedback">{{ $message }}</div>@enderror</div>
+    <div class="col-md-3"><label class="form-label">Display Order</label><input class="form-control" type="number" min="0" name="sort_order" value="{{ old('sort_order', $category->sort_order ?? 0) }}"></div>
+    <div class="col-md-3"><label class="form-label">Status</label><select class="form-select" name="is_active"><option value="1" @selected(old('is_active', $category->is_active ?? true))>Active</option><option value="0" @selected(! old('is_active', $category->is_active ?? true))>Inactive</option></select></div>
+    <div class="col-md-6"><label class="form-label">Icon</label><input class="form-control" type="file" name="icon" accept="image/*">@if($category->icon_path)<small class="text-secondary">Current: {{ $category->icon_path }}</small>@endif</div>
+    <div class="col-md-6"><label class="form-label">Image</label><input class="form-control" type="file" name="image" accept="image/*">@if($category->image_path)<small class="text-secondary">Current: {{ $category->image_path }}</small>@endif</div>
+    <div class="col-12"><label class="form-label">Description</label><textarea class="form-control" name="description" rows="4">{{ old('description', $category->description) }}</textarea></div>
+    <div class="col-md-6"><label class="form-label">SEO Title</label><input class="form-control" name="seo_title" value="{{ old('seo_title', $category->seo_title) }}"></div>
+    <div class="col-md-6"><label class="form-label">SEO Description</label><textarea class="form-control" name="seo_description" rows="2">{{ old('seo_description', $category->seo_description) }}</textarea></div>
+</div>
+<div class="mt-4 d-flex gap-2"><button class="btn btn-primary">Save Category</button><a class="btn btn-outline-secondary" href="{{ route('admin.categories.index') }}">Cancel</a></div>
