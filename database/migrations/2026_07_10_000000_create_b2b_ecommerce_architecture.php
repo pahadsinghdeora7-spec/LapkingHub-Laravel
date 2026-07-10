@@ -10,14 +10,20 @@ return new class extends Migration
     {
         Schema::create('brands', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('name');
+            $table->string('name')->index();
             $table->string('slug')->unique();
             $table->string('logo_path')->nullable();
             $table->text('description')->nullable();
-            $table->boolean('is_active')->default(true)->index();
-            $table->unsignedInteger('sort_order')->default(0)->index();
+            $table->string('website')->nullable();
+            $table->string('country', 2)->nullable()->index();
+            $table->string('status')->default('active')->index();
+            $table->string('seo_title')->nullable();
+            $table->text('seo_description')->nullable();
+            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
             $table->timestamps();
             $table->softDeletes();
+            $table->index(['status', 'created_at']);
         });
 
         Schema::create('categories', function (Blueprint $table) {

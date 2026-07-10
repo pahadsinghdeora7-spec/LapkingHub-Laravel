@@ -3,7 +3,7 @@
         ['label' => 'Dashboard', 'icon' => 'bi-speedometer2', 'route' => 'admin.dashboard'],
         ['label' => 'Products', 'icon' => 'bi-box-seam'],
         ['label' => 'Categories', 'icon' => 'bi-tags'],
-        ['label' => 'Brands', 'icon' => 'bi-award'],
+        ['label' => 'Brands', 'icon' => 'bi-award', 'route' => 'admin.brands.index', 'active' => 'admin.brands.*'],
         ['label' => 'Orders', 'icon' => 'bi-bag-check'],
         ['label' => 'Customers', 'icon' => 'bi-people'],
         ['label' => 'Inventory', 'icon' => 'bi-boxes'],
@@ -34,7 +34,7 @@
     <nav class="admin-sidebar-nav">
         @foreach ($adminMenu as $item)
             @php
-                $isActive = isset($item['route']) && request()->routeIs($item['route']);
+                $isActive = isset($item['active']) ? request()->routeIs($item['active']) : (isset($item['route']) && request()->routeIs($item['route']));
                 $href = isset($item['route']) ? route($item['route']) : '#';
             @endphp
             <a href="{{ $href }}" class="admin-nav-link {{ $isActive ? 'active' : '' }}" @if(! isset($item['route'])) aria-disabled="true" @endif>
