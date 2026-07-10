@@ -6,10 +6,9 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Series extends Model
+class LaptopModel extends Model
 {
     use HasFactory, HasUuids, SoftDeletes;
 
@@ -17,13 +16,12 @@ class Series extends Model
     public const STATUS_INACTIVE = 'inactive';
     public const STATUS_ARCHIVED = 'archived';
 
-    protected $table = 'series';
-
     protected $guarded = ['id'];
 
     protected function casts(): array
     {
         return [
+            'release_year' => 'integer',
             'created_at' => 'datetime',
             'updated_at' => 'datetime',
             'deleted_at' => 'datetime',
@@ -40,10 +38,9 @@ class Series extends Model
         return $this->belongsTo(Manufacturer::class);
     }
 
-
-    public function laptopModels(): HasMany
+    public function series(): BelongsTo
     {
-        return $this->hasMany(LaptopModel::class);
+        return $this->belongsTo(Series::class);
     }
 
     public function creator(): BelongsTo

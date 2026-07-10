@@ -44,6 +44,12 @@ class Manufacturer extends Model
         return $this->morphOne(Seo::class, 'seoable');
     }
 
+
+    public function laptopModels(): HasMany
+    {
+        return $this->hasMany(LaptopModel::class);
+    }
+
     public function creator(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');

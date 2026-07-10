@@ -16,6 +16,7 @@ class AdministrationPolicy
     public function manageBrands(User $user): bool { return $user->hasPermission('manage-brands'); }
     public function manageManufacturers(User $user): bool { return $user->hasPermission('manage-manufacturers'); }
     public function manageSeries(User $user): bool { return $user->hasPermission('manage-series'); }
+    public function manageLaptopModels(User $user): bool { return $user->hasPermission('manage-laptop-models'); }
     public function manageOrders(User $user): bool { return $user->hasPermission('manage-orders'); }
     public function manageCustomers(User $user): bool { return $user->hasPermission('manage-customers'); }
     public function manageInventory(User $user): bool { return $user->hasPermission('manage-inventory'); }

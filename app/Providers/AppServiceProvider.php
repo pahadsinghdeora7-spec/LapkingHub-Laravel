@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Coupon;
 use App\Models\Customer;
 use App\Models\Inventory;
+use App\Models\LaptopModel;
 use App\Models\Manufacturer;
 use App\Models\Order;
 use App\Models\Product;
@@ -20,6 +21,7 @@ use App\Policies\CategoryPolicy;
 use App\Policies\CouponPolicy;
 use App\Policies\CustomerPolicy;
 use App\Policies\InventoryPolicy;
+use App\Policies\LaptopModelPolicy;
 use App\Policies\ManufacturerPolicy;
 use App\Policies\OrderPolicy;
 use App\Policies\ProductPolicy;
@@ -44,6 +46,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(Brand::class, BrandPolicy::class);
         Gate::policy(Manufacturer::class, ManufacturerPolicy::class);
         Gate::policy(Series::class, SeriesPolicy::class);
+        Gate::policy(LaptopModel::class, LaptopModelPolicy::class);
         Gate::policy(Order::class, OrderPolicy::class);
         Gate::policy(Customer::class, CustomerPolicy::class);
         Gate::policy(Inventory::class, InventoryPolicy::class);
@@ -67,6 +70,7 @@ class AppServiceProvider extends ServiceProvider
             'manage-brands' => 'manageBrands',
             'manage-manufacturers' => 'manageManufacturers',
             'manage-series' => 'manageSeries',
+            'manage-laptop-models' => 'manageLaptopModels',
             'manage-orders' => 'manageOrders',
             'manage-customers' => 'manageCustomers',
             'manage-inventory' => 'manageInventory',
