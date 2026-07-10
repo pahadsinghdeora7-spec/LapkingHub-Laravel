@@ -15,6 +15,7 @@ class RolesAndPermissionsSeeder extends Seeder
             'Manage Products',
             'Manage Categories',
             'Manage Brands',
+            'Manage Manufacturers',
             'Manage Orders',
             'Manage Customers',
             'Manage Inventory',
@@ -34,7 +35,7 @@ class RolesAndPermissionsSeeder extends Seeder
         $rolePermissions = [
             'Super Admin' => $permissions->keys()->all(),
             'Admin' => $permissions->keys()->reject(fn (string $slug): bool => $slug === 'manage-settings')->all(),
-            'Manager' => ['manage-products', 'manage-categories', 'manage-brands', 'manage-orders', 'manage-customers', 'manage-inventory', 'manage-coupons', 'view-reports'],
+            'Manager' => ['manage-products', 'manage-categories', 'manage-brands', 'manage-manufacturers', 'manage-orders', 'manage-customers', 'manage-inventory', 'manage-coupons', 'view-reports'],
             'Sales' => ['manage-orders', 'manage-customers', 'manage-coupons'],
             'Warehouse' => ['manage-products', 'manage-inventory', 'manage-orders'],
             'Support' => ['manage-orders', 'manage-customers'],

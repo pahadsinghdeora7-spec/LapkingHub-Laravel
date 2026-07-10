@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\ManufacturerController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -25,6 +26,10 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::resource('brands', BrandController::class);
     Route::patch('brands/{brand}/restore', [BrandController::class, 'restore'])->name('brands.restore');
     Route::delete('brands/{brand}/force-delete', [BrandController::class, 'forceDelete'])->name('brands.force-delete');
+
+    Route::resource('manufacturers', ManufacturerController::class);
+    Route::patch('manufacturers/{manufacturer}/restore', [ManufacturerController::class, 'restore'])->name('manufacturers.restore');
+    Route::delete('manufacturers/{manufacturer}/force-delete', [ManufacturerController::class, 'forceDelete'])->name('manufacturers.force-delete');
 });
 
 require __DIR__.'/auth.php';
