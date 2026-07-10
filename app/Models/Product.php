@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -57,7 +58,8 @@ class Product extends Model
     public function category(): BelongsTo { return $this->belongsTo(Category::class); }
     public function subCategory(): BelongsTo { return $this->belongsTo(SubCategory::class); }
     public function alternatePartNumbers(): HasMany { return $this->hasMany(ProductAlternatePartNumber::class); }
-    public function images(): HasMany { return $this->hasMany(ProductImage::class); }
+    public function images(): HasMany { return $this->hasMany(ProductImage::class)->orderBy('sort_order'); }
+    public function primaryImage(): HasOne { return $this->hasOne(ProductImage::class)->where('is_primary', true); }
     public function attributes(): HasMany { return $this->hasMany(ProductAttribute::class); }
     public function compatibleModels(): HasMany { return $this->hasMany(CompatibleModel::class); }
     public function laptopModels(): BelongsToMany { return $this->belongsToMany(LaptopModel::class, 'product_laptop_models')->using(ProductLaptopModelPivot::class)->withPivot(['id', 'compatibility_type', 'oem_part_number', 'notes', 'priority', 'status', 'created_by', 'updated_by'])->withTimestamps(); }
