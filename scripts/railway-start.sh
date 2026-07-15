@@ -11,6 +11,11 @@ if ! php -r '$key = getenv("APP_KEY") ?: ""; if (!str_starts_with($key, "base64:
     echo "Generated a valid temporary Laravel APP_KEY. Set APP_KEY in Railway variables for persistent encrypted sessions." >&2
 fi
 
+if [ ! -f public/build/manifest.json ]; then
+    echo "Vite manifest missing at public/build/manifest.json. Railway must run npm ci and npm run build during deployment." >&2
+    exit 1
+fi
+
 php artisan config:clear
 php artisan cache:clear
 php artisan route:clear
