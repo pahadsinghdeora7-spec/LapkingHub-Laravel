@@ -8,7 +8,8 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('product_laptop_models', function (Blueprint $table) {
+        if (! Schema::hasTable('product_laptop_models')) {
+            Schema::create('product_laptop_models', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('product_id')->constrained()->cascadeOnDelete();
             $table->foreignUuid('laptop_model_id')->constrained()->cascadeOnDelete();
@@ -25,6 +26,7 @@ return new class extends Migration
             $table->index(['product_id', 'status', 'priority']);
             $table->index(['laptop_model_id', 'status']);
         });
+        }
     }
 
     public function down(): void

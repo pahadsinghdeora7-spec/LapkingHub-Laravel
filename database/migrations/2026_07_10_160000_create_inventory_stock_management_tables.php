@@ -48,7 +48,7 @@ return new class extends Migration
                     'quantity' => fn () => $table->unsignedInteger('quantity')->default(0)->after('movement_type'),
                     'previous_stock' => fn () => $table->unsignedInteger('previous_stock')->default(0)->after('quantity'),
                     'current_stock' => fn () => $table->unsignedInteger('current_stock')->default(0)->after('previous_stock'),
-                    'remarks' => fn () => $table->text('remarks')->nullable()->after('reference_id'),
+                    'remarks' => fn () => $table->text('remarks')->nullable(),
                     'created_by' => fn () => $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete()->after('remarks'),
                 ] as $column => $callback) {
                     if (! Schema::hasColumn('stock_movements', $column)) { $callback(); }
@@ -59,6 +59,7 @@ return new class extends Migration
 
     public function down(): void
     {
+        Schema::dropIfExists('stock_movements');
         Schema::dropIfExists('inventories');
     }
 };
