@@ -8,7 +8,8 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('brands', function (Blueprint $table) {
+        if (! Schema::hasTable('brands')) {
+            Schema::create('brands', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name')->index();
             $table->string('slug')->unique();
@@ -25,8 +26,10 @@ return new class extends Migration
             $table->softDeletes();
             $table->index(['status', 'created_at']);
         });
+        }
 
-        Schema::create('categories', function (Blueprint $table) {
+        if (! Schema::hasTable('categories')) {
+            Schema::create('categories', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('parent_id')->nullable()->constrained('categories')->nullOnDelete();
             $table->string('name');
@@ -44,8 +47,10 @@ return new class extends Migration
             $table->softDeletes();
             $table->index(['parent_id', 'is_active']);
         });
+        }
 
-        Schema::create('sub_categories', function (Blueprint $table) {
+        if (! Schema::hasTable('sub_categories')) {
+            Schema::create('sub_categories', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('category_id')->constrained()->cascadeOnDelete();
             $table->string('name');
@@ -58,8 +63,10 @@ return new class extends Migration
             $table->softDeletes();
             $table->index(['category_id', 'is_active']);
         });
+        }
 
-        Schema::create('products', function (Blueprint $table) {
+        if (! Schema::hasTable('products')) {
+            Schema::create('products', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('brand_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignUuid('category_id')->constrained()->restrictOnDelete();
@@ -85,8 +92,10 @@ return new class extends Migration
             $table->index(['brand_id', 'is_active']);
             $table->index(['is_active', 'published_at']);
         });
+        }
 
-        Schema::create('product_images', function (Blueprint $table) {
+        if (! Schema::hasTable('product_images')) {
+            Schema::create('product_images', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('product_id')->constrained()->cascadeOnDelete();
             $table->string('image_path');
@@ -104,8 +113,10 @@ return new class extends Migration
             $table->softDeletes();
             $table->index(['product_id', 'sort_order']);
         });
+        }
 
-        Schema::create('product_attributes', function (Blueprint $table) {
+        if (! Schema::hasTable('product_attributes')) {
+            Schema::create('product_attributes', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('product_id')->constrained()->cascadeOnDelete();
             $table->string('name');
@@ -115,8 +126,10 @@ return new class extends Migration
             $table->timestamps();
             $table->index(['product_id', 'name']);
         });
+        }
 
-        Schema::create('compatible_models', function (Blueprint $table) {
+        if (! Schema::hasTable('compatible_models')) {
+            Schema::create('compatible_models', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('product_id')->constrained()->cascadeOnDelete();
             $table->string('brand_name')->index();
@@ -127,8 +140,10 @@ return new class extends Migration
             $table->timestamps();
             $table->index(['product_id', 'brand_name', 'model_name']);
         });
+        }
 
-        Schema::create('customers', function (Blueprint $table) {
+        if (! Schema::hasTable('customers')) {
+            Schema::create('customers', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
             $table->string('company_name')->nullable()->index();
@@ -141,8 +156,10 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+        }
 
-        Schema::create('customer_addresses', function (Blueprint $table) {
+        if (! Schema::hasTable('customer_addresses')) {
+            Schema::create('customer_addresses', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('customer_id')->constrained()->cascadeOnDelete();
             $table->string('type')->default('shipping')->index();
@@ -160,8 +177,10 @@ return new class extends Migration
             $table->softDeletes();
             $table->index(['customer_id', 'type']);
         });
+        }
 
-        Schema::create('shipping_methods', function (Blueprint $table) {
+        if (! Schema::hasTable('shipping_methods')) {
+            Schema::create('shipping_methods', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name');
             $table->string('code')->unique();
@@ -171,8 +190,10 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+        }
 
-        Schema::create('orders', function (Blueprint $table) {
+        if (! Schema::hasTable('orders')) {
+            Schema::create('orders', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('customer_id')->constrained()->restrictOnDelete();
             $table->foreignUuid('shipping_method_id')->nullable()->constrained()->nullOnDelete();
@@ -194,8 +215,10 @@ return new class extends Migration
             $table->index(['customer_id', 'created_at']);
             $table->index(['status', 'created_at']);
         });
+        }
 
-        Schema::create('order_items', function (Blueprint $table) {
+        if (! Schema::hasTable('order_items')) {
+            Schema::create('order_items', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('order_id')->constrained()->cascadeOnDelete();
             $table->foreignUuid('product_id')->nullable()->constrained()->nullOnDelete();
@@ -210,8 +233,10 @@ return new class extends Migration
             $table->timestamps();
             $table->index(['order_id', 'product_id']);
         });
+        }
 
-        Schema::create('payments', function (Blueprint $table) {
+        if (! Schema::hasTable('payments')) {
+            Schema::create('payments', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('order_id')->constrained()->cascadeOnDelete();
             $table->string('provider')->index();
@@ -224,8 +249,10 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+        }
 
-        Schema::create('coupons', function (Blueprint $table) {
+        if (! Schema::hasTable('coupons')) {
+            Schema::create('coupons', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('code')->unique();
             $table->string('type')->index();
@@ -239,8 +266,10 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+        }
 
-        Schema::create('coupon_usage', function (Blueprint $table) {
+        if (! Schema::hasTable('coupon_usage')) {
+            Schema::create('coupon_usage', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('coupon_id')->constrained()->cascadeOnDelete();
             $table->foreignUuid('customer_id')->constrained()->cascadeOnDelete();
@@ -251,40 +280,23 @@ return new class extends Migration
             $table->unique(['coupon_id', 'order_id']);
             $table->index(['coupon_id', 'customer_id']);
         });
+        }
 
-        Schema::create('inventory', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->foreignUuid('product_id')->constrained()->cascadeOnDelete();
-            $table->string('warehouse_code')->default('main')->index();
-            $table->integer('quantity_on_hand')->default(0);
-            $table->integer('quantity_reserved')->default(0);
-            $table->integer('reorder_level')->default(0);
-            $table->timestamps();
-            $table->unique(['product_id', 'warehouse_code']);
-        });
+        // Inventory and stock movement tables are created by the dedicated
+        // stock management migration to avoid conflicting legacy schemas.
 
-        Schema::create('stock_movements', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->foreignUuid('inventory_id')->constrained('inventory')->cascadeOnDelete();
-            $table->foreignUuid('product_id')->constrained()->cascadeOnDelete();
-            $table->string('type')->index();
-            $table->integer('quantity_change');
-            $table->integer('quantity_after');
-            $table->nullableUuidMorphs('reference');
-            $table->text('notes')->nullable();
-            $table->timestamps();
-            $table->index(['product_id', 'created_at']);
-        });
-
-        Schema::create('wishlists', function (Blueprint $table) {
+        if (! Schema::hasTable('wishlists')) {
+            Schema::create('wishlists', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('customer_id')->constrained()->cascadeOnDelete();
             $table->foreignUuid('product_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
             $table->unique(['customer_id', 'product_id']);
         });
+        }
 
-        Schema::create('carts', function (Blueprint $table) {
+        if (! Schema::hasTable('carts')) {
+            Schema::create('carts', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('customer_id')->nullable()->constrained()->cascadeOnDelete();
             $table->foreignUuid('product_id')->constrained()->cascadeOnDelete();
@@ -295,8 +307,10 @@ return new class extends Migration
             $table->index(['customer_id', 'updated_at']);
             $table->index(['session_id', 'updated_at']);
         });
+        }
 
-        Schema::create('reviews', function (Blueprint $table) {
+        if (! Schema::hasTable('reviews')) {
+            Schema::create('reviews', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('product_id')->constrained()->cascadeOnDelete();
             $table->foreignUuid('customer_id')->nullable()->constrained()->nullOnDelete();
@@ -309,8 +323,10 @@ return new class extends Migration
             $table->softDeletes();
             $table->index(['product_id', 'status']);
         });
+        }
 
-        Schema::create('banners', function (Blueprint $table) {
+        if (! Schema::hasTable('banners')) {
+            Schema::create('banners', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('title');
             $table->string('slug')->unique();
@@ -324,8 +340,10 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+        }
 
-        Schema::create('blogs', function (Blueprint $table) {
+        if (! Schema::hasTable('blogs')) {
+            Schema::create('blogs', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('title');
             $table->string('slug')->unique();
@@ -337,8 +355,10 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+        }
 
-        Schema::create('pages', function (Blueprint $table) {
+        if (! Schema::hasTable('pages')) {
+            Schema::create('pages', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('title');
             $table->string('slug')->unique();
@@ -347,8 +367,10 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+        }
 
-        Schema::create('menus', function (Blueprint $table) {
+        if (! Schema::hasTable('menus')) {
+            Schema::create('menus', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('parent_id')->nullable()->constrained('menus')->nullOnDelete();
             $table->nullableUuidMorphs('menuable');
@@ -361,8 +383,10 @@ return new class extends Migration
             $table->softDeletes();
             $table->index(['parent_id', 'location']);
         });
+        }
 
-        Schema::create('settings', function (Blueprint $table) {
+        if (! Schema::hasTable('settings')) {
+            Schema::create('settings', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('group')->index();
             $table->string('key');
@@ -372,8 +396,10 @@ return new class extends Migration
             $table->timestamps();
             $table->unique(['group', 'key']);
         });
+        }
 
-        Schema::create('seo', function (Blueprint $table) {
+        if (! Schema::hasTable('seo')) {
+            Schema::create('seo', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->nullableUuidMorphs('seoable');
             $table->string('meta_title')->nullable();
@@ -385,8 +411,10 @@ return new class extends Migration
             $table->timestamps();
             $table->unique(['seoable_type', 'seoable_id']);
         });
+        }
 
-        Schema::create('redirects', function (Blueprint $table) {
+        if (! Schema::hasTable('redirects')) {
+            Schema::create('redirects', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('source_url')->unique();
             $table->string('target_url');
@@ -395,8 +423,10 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+        }
 
-        Schema::create('activity_logs', function (Blueprint $table) {
+        if (! Schema::hasTable('activity_logs')) {
+            Schema::create('activity_logs', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
             $table->nullableUuidMorphs('subject');
@@ -409,6 +439,7 @@ return new class extends Migration
             $table->index(['subject_type', 'subject_id']);
             $table->index(['user_id', 'created_at']);
         });
+        }
     }
 
     public function down(): void
@@ -424,8 +455,6 @@ return new class extends Migration
         Schema::dropIfExists('reviews');
         Schema::dropIfExists('carts');
         Schema::dropIfExists('wishlists');
-        Schema::dropIfExists('stock_movements');
-        Schema::dropIfExists('inventory');
         Schema::dropIfExists('coupon_usage');
         Schema::dropIfExists('coupons');
         Schema::dropIfExists('payments');

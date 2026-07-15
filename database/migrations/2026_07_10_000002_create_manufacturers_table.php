@@ -8,7 +8,8 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('manufacturers', function (Blueprint $table) {
+        if (! Schema::hasTable('manufacturers')) {
+            Schema::create('manufacturers', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name')->index();
             $table->string('slug')->unique();
@@ -24,6 +25,7 @@ return new class extends Migration
             $table->softDeletes();
             $table->index(['status', 'created_at']);
         });
+        }
     }
 
     public function down(): void

@@ -8,7 +8,8 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('series', function (Blueprint $table) {
+        if (! Schema::hasTable('series')) {
+            Schema::create('series', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('manufacturer_id')->constrained('manufacturers')->cascadeOnDelete();
             $table->string('name')->index();
@@ -25,6 +26,7 @@ return new class extends Migration
             $table->index(['manufacturer_id', 'status']);
             $table->index(['status', 'created_at']);
         });
+        }
     }
 
     public function down(): void
