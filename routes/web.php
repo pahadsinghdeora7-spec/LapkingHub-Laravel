@@ -12,11 +12,12 @@ use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\LaptopModelController;
 use App\Http\Controllers\Admin\SeriesController;
 use App\Http\Controllers\ProductCompatibilityController;
+use App\Http\Controllers\StorefrontController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [StorefrontController::class, 'home'])->name('storefront.home');
+Route::get('/products', [StorefrontController::class, 'products'])->name('storefront.products.index');
+Route::get('/products/{product}', [StorefrontController::class, 'product'])->name('storefront.products.show');
 
 Route::get('products/{product}/compatible-laptop-models', [ProductCompatibilityController::class, 'show'])->name('products.compatible-laptop-models');
 
