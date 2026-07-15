@@ -12,11 +12,33 @@ class StorefrontController extends Controller
 {
     public function home(): View
     {
-        $featuredProducts = Product::query()
+        $baseProductQuery = Product::query()
             ->with(['brand', 'category', 'primaryImage'])
             ->where('status', Product::STATUS_ACTIVE)
-            ->where('is_active', true)
+            ->where('is_active', true);
+
+        $featuredProducts = (clone $baseProductQuery)
+            ->where('is_featured', true)
             ->latest('created_at')
+            ->take(8)
+            ->get();
+
+        if ($featuredProducts->isEmpty()) {
+            $featuredProducts = (clone $baseProductQuery)
+                ->latest('created_at')
+                ->take(8)
+                ->get();
+        }
+
+        $newProducts = (clone $baseProductQuery)
+            ->latest('created_at')
+            ->take(8)
+            ->get();
+
+        $bestSellers = (clone $baseProductQuery)
+            ->orderByDesc('is_trending')
+            ->orderByDesc('is_featured')
+            ->latest('updated_at')
             ->take(8)
             ->get();
 
@@ -33,7 +55,7 @@ class StorefrontController extends Controller
             ->take(10)
             ->get();
 
-        return view('storefront.home', compact('featuredProducts', 'categories', 'brands'));
+        return view('storefront.home', compact('featuredProducts', 'newProducts', 'bestSellers', 'categories', 'brands'));
     }
 
     public function products(Request $request): View
